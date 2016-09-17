@@ -57,6 +57,9 @@
     <ClInclude Include="improc.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="openvxpp.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="vxexcept.cpp">

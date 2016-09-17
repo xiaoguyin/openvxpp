@@ -13,27 +13,12 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 *************************************************************************/
-#ifndef __NOVX_OPENVX_CPP__DEVICE_HPP__
-#define __NOVX_OPENVX_CPP__DEVICE_HPP__
+#ifndef __OPENVX_CPP_H__
+#define __OPENVX_CPP_H__
 
-#include "ovxcontext.h"
+#include "mat_constructor.hpp"
+#include "fixed_reference.hpp"
+#include "image.hpp"
+#include "improc.h"
 
-namespace novx
-{
-	void to_cpu(ovx::ovxcontext &context = ovx::vxcontext);
-	void to_gpu(ovx::ovxcontext &context = ovx::vxcontext);
-}
-
-inline void novx::to_cpu(ovx::ovxcontext &context)
-{
-	vx_enum immediate_target = NVX_DEVICE_CPU;
-	::vxSetContextAttribute(context, NVX_CONTEXT_ATTRIBUTE_IMMEDIATE_TARGET_DEVICE, &immediate_target, sizeof(immediate_target));
-}
-
-inline void novx::to_gpu(ovx::ovxcontext &context)
-{
-	vx_enum immediate_target = NVX_DEVICE_GPU;
-	::vxSetContextAttribute(context, NVX_CONTEXT_ATTRIBUTE_IMMEDIATE_TARGET_DEVICE, &immediate_target, sizeof(immediate_target));
-}
-
-#endif // !__NVX_OPENVX_CPP__DEVICE_HPP__
+#endif // !__OPENVX_CPP_H__

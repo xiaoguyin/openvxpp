@@ -23,7 +23,7 @@ template <typename Target, typename Source>
 inline Target ovx_color_convert(const Source &src, const ovx::ovxcontext &context)
 {
 	Target out(src.width(), src.height());
-	vx_throw_if_failed(::vxuColorConvert(context, src, out));
+	ovx::throw_if_failed(::vxuColorConvert(context, src, out));
 	return out;
 }
 
@@ -32,7 +32,7 @@ template <typename Source>
 inline ovx::image_u8 ovx_channel_extract(const Source &src, vx_enum channel, const ovx::ovxcontext &context)
 {
 	ovx::image_u8 out(src.width(), src.height());
-	vx_throw_if_failed(::vxuChannelExtract(context, src, channel, out));
+	ovx::throw_if_failed(::vxuChannelExtract(context, src, channel, out));
 	return out;
 }
 
@@ -41,7 +41,7 @@ template <typename Target, typename Source>
 inline Target ovx_channel_combine(const Source &plane1, const Source &plane2, const Source &plane3, const ovx::ovxcontext &context)
 {
 	Target out(plane1.width(), plane1.height());
-	vx_throw_if_failed(::vxuChannelCombine(context, plane1, plane2, plane3, nullptr, out));
+	ovx::throw_if_failed(::vxuChannelCombine(context, plane1, plane2, plane3, nullptr, out));
 	return out;
 }
 
@@ -50,7 +50,7 @@ template <typename Target, typename Source>
 inline Target ovx_channel_combine(const Source &plane1, const Source &plane2, const Source &plane3, const Source &plane4, const ovx::ovxcontext &context)
 {
 	Target out(plane1.width(), plane1.height());
-	vx_throw_if_failed(::vxuChannelCombine(context, plane1, plane2, plane3, plane4, out));
+	ovx::throw_if_failed(::vxuChannelCombine(context, plane1, plane2, plane3, plane4, out));
 	return out;
 }
 
@@ -59,7 +59,7 @@ template <typename T>
 inline T ovx_abs_diff(const T &image1, const T &image2, const ovx::ovxcontext &context)
 {
 	T out(image1.width(), image1.height());
-	vx_throw_if_failed(::vxuAbsDiff(context, image1, image2, out));
+	ovx::throw_if_failed(::vxuAbsDiff(context, image1, image2, out));
 	return out;
 }
 
@@ -68,7 +68,7 @@ template <typename T>
 inline T ovx_add(const T &image1, const T &image2, vx_enum policy, const ovx::ovxcontext &context)
 {
 	T out(image1.width(), image1.height());
-	vx_throw_if_failed(::vxuAdd(context, image1, image2, policy, out));
+	ovx::throw_if_failed(::vxuAdd(context, image1, image2, policy, out));
 	return out;
 }
 
@@ -77,7 +77,7 @@ template <typename T>
 inline T ovx_subtract(const T &image1, const T &image2, vx_enum policy, const ovx::ovxcontext &context)
 {
 	T out(image1.width(), image1.height());
-	vx_throw_if_failed(::vxuSubtract(context, image1, image2, policy, out));
+	ovx::throw_if_failed(::vxuSubtract(context, image1, image2, policy, out));
 	return out;
 }
 
@@ -468,7 +468,7 @@ ovx::image_s16 ovx::absdiff(const image_s16 &image1, const image_s16 &image2, co
 
 void ovx::accumulate(image_s16 &accum, const image_u8 &input)
 {
-	vx_throw_if_failed(::vxuAccumulateImage(vxcontext, input, accum));
+	throw_if_failed(::vxuAccumulateImage(vxcontext, input, accum));
 }
 
 
@@ -478,8 +478,8 @@ void ovx::square_accumulate(image_s16 &accum, const image_u8 &input, vx_uint32 s
 	{
 		::vxReleaseScalar(&p);
 	});
-	vx_throw_if_failed(vxGetStatus(scalar.get()));
-	vx_throw_if_failed(::vxuAccumulateSquareImage(vxcontext, input, scalar.get(), accum));
+	throw_if_failed(vxGetStatus(scalar.get()));
+	throw_if_failed(::vxuAccumulateSquareImage(vxcontext, input, scalar.get(), accum));
 }
 
 
@@ -489,8 +489,8 @@ void ovx::weight_accumulate(image_u8 &accum, const image_u8 &input, vx_float32 s
 	{
 		::vxReleaseScalar(&p);
 	});
-	vx_throw_if_failed(vxGetStatus(scalar.get()));
-	vx_throw_if_failed(::vxuAccumulateWeightedImage(vxcontext, input, scalar.get(), accum));
+	throw_if_failed(vxGetStatus(scalar.get()));
+	throw_if_failed(::vxuAccumulateWeightedImage(vxcontext, input, scalar.get(), accum));
 }
 
 
@@ -521,7 +521,7 @@ ovx::image_s16 ovx::subtract(const image_s16 &image1, const image_s16 &image2, b
 ovx::image_u8 ovx::and(const image_u8 &image1, const image_u8 &image2, const ovxcontext &context)
 {
 	image_u8 out(image1.width(), image1.height());
-	vx_throw_if_failed(::vxuAnd(context, image1, image2, out));
+	throw_if_failed(::vxuAnd(context, image1, image2, out));
 	return out;
 }
 
@@ -529,7 +529,7 @@ ovx::image_u8 ovx::and(const image_u8 &image1, const image_u8 &image2, const ovx
 ovx::image_u8 ovx::or(const image_u8 &image1, const image_u8 &image2, const ovxcontext &context)
 {
 	image_u8 out(image1.width(), image1.height());
-	vx_throw_if_failed(::vxuOr(context, image1, image2, out));
+	throw_if_failed(::vxuOr(context, image1, image2, out));
 	return out;
 }
 
@@ -537,7 +537,7 @@ ovx::image_u8 ovx::or(const image_u8 &image1, const image_u8 &image2, const ovxc
 ovx::image_u8 ovx::xor(const image_u8 &image1, const image_u8 &image2, const ovxcontext &context)
 {
 	image_u8 out(image1.width(), image1.height());
-	vx_throw_if_failed(::vxuXor(context, image1, image2, out));
+	throw_if_failed(::vxuXor(context, image1, image2, out));
 	return out;
 }
 
@@ -545,7 +545,7 @@ ovx::image_u8 ovx::xor(const image_u8 &image1, const image_u8 &image2, const ovx
 ovx::image_u8 ovx::not(const image_u8 &image, const ovxcontext &context)
 {
 	image_u8 out(image.width(), image.height());
-	vx_throw_if_failed(::vxuNot(context, image, out));
+	throw_if_failed(::vxuNot(context, image, out));
 	return out;
 }
 
@@ -652,7 +652,7 @@ ovx::image_u8 ovx::operator~(const image_u8 &image)
 ovx::image_u8 ovx::to_u8(const image_s16 &image, vx_int32 shift, bool saturate, const ovxcontext &context)
 {
 	image_u8 out(image.width(), image.height());
-	vx_throw_if_failed(::vxuConvertDepth(context, image, out, saturate, shift));
+	throw_if_failed(::vxuConvertDepth(context, image, out, saturate, shift));
 	return out;
 }
 
@@ -660,7 +660,7 @@ ovx::image_u8 ovx::to_u8(const image_s16 &image, vx_int32 shift, bool saturate, 
 ovx::image_s16 ovx::to_s16(const image_u8 &image, vx_int32 shift, bool saturate, const ovxcontext &context)
 {
 	image_s16 out(image.width(), image.height());
-	vx_throw_if_failed(::vxuConvertDepth(context, image, out, saturate, shift));
+	throw_if_failed(::vxuConvertDepth(context, image, out, saturate, shift));
 	return out;
 }
 
@@ -668,7 +668,7 @@ ovx::image_s16 ovx::to_s16(const image_u8 &image, vx_int32 shift, bool saturate,
 ovx::image_u8 ovx::filter_box(const image_u8 &image, const ovxcontext &context)
 {
 	image_u8 out(image.width(), image.height());
-	vx_throw_if_failed(::vxuBox3x3(context, image, out));
+	throw_if_failed(::vxuBox3x3(context, image, out));
 	return out;
 }
 
@@ -676,14 +676,14 @@ ovx::image_u8 ovx::filter_box(const image_u8 &image, const ovxcontext &context)
 ovx::image_u8 ovx::filter_gaussian(const image_u8 &image, const ovxcontext &context)
 {
 	image_u8 out(image.width(), image.height());
-	vx_throw_if_failed(::vxuGaussian3x3(context, image, out));
+	throw_if_failed(::vxuGaussian3x3(context, image, out));
 	return out;
 }
 
 ovx::image_u8 ovx::filter_median(const image_u8 &image, const ovxcontext &context)
 {
 	image_u8 out(image.width(), image.height());
-	vx_throw_if_failed(::vxuMedian3x3(context, image, out));
+	throw_if_failed(::vxuMedian3x3(context, image, out));
 	return out;
 }
 
@@ -694,13 +694,13 @@ ovx::image_u8 ovx::canny(const image_u8 &image, vx_int32 lower, vx_int32 upper, 
 	{
 		::vxReleaseThreshold(&p);
 	});
-	vx_throw_if_failed(vxGetStatus(thresh.get()));
+	throw_if_failed(vxGetStatus(thresh.get()));
 
-	vx_throw_if_failed(::vxSetThresholdAttribute(thresh.get(), VX_THRESHOLD_ATTRIBUTE_THRESHOLD_LOWER, &lower, sizeof(lower)));
-	vx_throw_if_failed(::vxSetThresholdAttribute(thresh.get(), VX_THRESHOLD_ATTRIBUTE_THRESHOLD_UPPER, &upper, sizeof(upper)));
+	throw_if_failed(::vxSetThresholdAttribute(thresh.get(), VX_THRESHOLD_ATTRIBUTE_THRESHOLD_LOWER, &lower, sizeof(lower)));
+	throw_if_failed(::vxSetThresholdAttribute(thresh.get(), VX_THRESHOLD_ATTRIBUTE_THRESHOLD_UPPER, &upper, sizeof(upper)));
 
 	image_u8 out(image.width(), image.height());
-	vx_throw_if_failed(::vxuCannyEdgeDetector(context, image, thresh.get(), gradient_size, normalization_l1 ? VX_NORM_L1 : VX_NORM_L2, out));
+	throw_if_failed(::vxuCannyEdgeDetector(context, image, thresh.get(), gradient_size, normalization_l1 ? VX_NORM_L1 : VX_NORM_L2, out));
 	return out;
 }
 
@@ -708,7 +708,7 @@ ovx::image_u8 ovx::canny(const image_u8 &image, vx_int32 lower, vx_int32 upper, 
 ovx::image_u8 ovx::dilate(const image_u8 &image, const ovxcontext &context)
 {
 	image_u8 out(image.width(), image.height());
-	vx_throw_if_failed(::vxuDilate3x3(context, image, out));
+	throw_if_failed(::vxuDilate3x3(context, image, out));
 	return out;
 }
 
@@ -716,7 +716,7 @@ ovx::image_u8 ovx::dilate(const image_u8 &image, const ovxcontext &context)
 ovx::image_u8 ovx::erode(const image_u8 &image, const ovxcontext &context)
 {
 	image_u8 out(image.width(), image.height());
-	vx_throw_if_failed(::vxuErode3x3(context, image, out));
+	throw_if_failed(::vxuErode3x3(context, image, out));
 	return out;
 }
 
@@ -727,11 +727,11 @@ ovx::image_u8 ovx::threshold(const image_u8 &image, vx_int32 threshval, const ov
 	{
 		::vxReleaseThreshold(&p);
 	});
-	vx_throw_if_failed(vxGetStatus(thresh.get()));
+	throw_if_failed(vxGetStatus(thresh.get()));
 
-	vx_throw_if_failed(::vxSetThresholdAttribute(thresh.get(), VX_THRESHOLD_ATTRIBUTE_THRESHOLD_VALUE, &threshval, sizeof(threshval)));
+	throw_if_failed(::vxSetThresholdAttribute(thresh.get(), VX_THRESHOLD_ATTRIBUTE_THRESHOLD_VALUE, &threshval, sizeof(threshval)));
 
 	image_u8 out(image.width(), image.height());
-	vx_throw_if_failed(::vxuThreshold(context, image, thresh.get(), out));
+	throw_if_failed(::vxuThreshold(context, image, thresh.get(), out));
 	return out;
 }

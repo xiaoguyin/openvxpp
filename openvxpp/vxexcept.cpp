@@ -17,63 +17,88 @@
 #include <stdexcept>
 
 
-std::exception ovx::exception_from_status(vx_status err) noexcept
+void ovx::throw_if_failed(vx_status err)
 {
 	vx_status_e error = (vx_status_e)err;
 
 	switch (error)
 	{
 	case VX_STATUS_MIN:
-		return std::out_of_range(R"(The lower bound of status codes in VX.)");
+		throw std::out_of_range(R"(The lower bound of status codes in VX.)");
+		break;
 	case VX_ERROR_REFERENCE_NONZERO:
-		return std::logic_error(R"(An operation did not complete due to a reference count being non-zero.)");
+		throw std::logic_error(R"(An operation did not complete due to a reference count being non-zero.)");
+		break;
 	case VX_ERROR_MULTIPLE_WRITERS:
-		return std::logic_error(R"(The graph has more than one node outputting to the same data object. This is an invalid graph structure.)");
+		throw std::logic_error(R"(The graph has more than one node outputting to the same data object. This is an invalid graph structure.)");
+		break;
 	case VX_ERROR_GRAPH_ABANDONED:
-		return std::runtime_error(R"(The graph is stopped due to an error or a callback that abandoned execution.)");
+		throw std::runtime_error(R"(The graph is stopped due to an error or a callback that abandoned execution.)");
+		break;
 	case VX_ERROR_GRAPH_SCHEDULED:
-		return std::invalid_argument(R"(The supplied graph already has been scheduled and may be currently executing.)");
+		throw std::invalid_argument(R"(The supplied graph already has been scheduled and may be currently executing.)");
+		break;
 	case VX_ERROR_INVALID_SCOPE:
-		return std::invalid_argument(R"(The supplied parameter is from another scope and cannot be used in the current scope.)");
+		throw std::invalid_argument(R"(The supplied parameter is from another scope and cannot be used in the current scope.)");
+		break;
 	case VX_ERROR_INVALID_NODE:
-		return std::invalid_argument(R"(The supplied node could not be created.)");
+		throw std::invalid_argument(R"(The supplied node could not be created.)");
+		break;
 	case VX_ERROR_INVALID_GRAPH:
-		return std::invalid_argument(R"(The supplied graph has invalid connections (cycles).)");
+		throw std::invalid_argument(R"(The supplied graph has invalid connections (cycles).)");
+		break;
 	case VX_ERROR_INVALID_TYPE:
-		return std::invalid_argument(R"(The supplied type parameter is incorrect.)");
+		throw std::invalid_argument(R"(The supplied type parameter is incorrect.)");
+		break;
 	case VX_ERROR_INVALID_VALUE:
-		return std::invalid_argument(R"(The supplied parameter has an incorrect value.)");
+		throw std::invalid_argument(R"(The supplied parameter has an incorrect value.)");
+		break;
 	case VX_ERROR_INVALID_DIMENSION:
-		return std::out_of_range(R"(The supplied parameter is too big or too small in dimension.)");
+		throw std::out_of_range(R"(The supplied parameter is too big or too small in dimension.)");
+		break;
 	case VX_ERROR_INVALID_FORMAT:
-		return std::invalid_argument(R"(The supplied parameter is in an invalid format.)");
+		throw std::invalid_argument(R"(The supplied parameter is in an invalid format.)");
+		break;
 	case VX_ERROR_INVALID_LINK:
-		return std::invalid_argument(R"(The link is not possible as specified. The parameters are incompatible.)");
+		throw std::invalid_argument(R"(The link is not possible as specified. The parameters are incompatible.)");
+		break;
 	case VX_ERROR_INVALID_REFERENCE:
-		return std::invalid_argument(R"(The reference provided is not valid.)");
+		throw std::invalid_argument(R"(The reference provided is not valid.)");
+		break;
 	case VX_ERROR_INVALID_MODULE:
-		return std::runtime_error(R"(This is returned from vxLoadKernels when the module does not contain the entry point.)");
+		throw std::runtime_error(R"(This is returned from vxLoadKernels when the module does not contain the entry point.)");
+		break;
 	case VX_ERROR_INVALID_PARAMETERS:
-		return std::invalid_argument(R"(The supplied parameter information does not match the kernel contract.)");
+		throw std::invalid_argument(R"(The supplied parameter information does not match the kernel contract.)");
+		break;
 	case VX_ERROR_OPTIMIZED_AWAY:
-		return std::runtime_error(R"(The object refered to has been optimized out of existence.)");
+		throw std::runtime_error(R"(The object refered to has been optimized out of existence.)");
+		break;
 	case VX_ERROR_NO_MEMORY:
-		return std::runtime_error(R"(An internal or implicit allocation failed. Typically catastrophic. After detection, deconstruct the context.)");
+		throw std::runtime_error(R"(An internal or implicit allocation failed. Typically catastrophic. After detection, deconstruct the context.)");
+		break;
 	case VX_ERROR_NO_RESOURCES:
-		return std::runtime_error(R"(An internal or implicit resource can not be acquired (not memory). This is typically catastrophic. After detection, deconstruct the context.)");
+		throw std::runtime_error(R"(An internal or implicit resource can not be acquired (not memory). This is typically catastrophic. After detection, deconstruct the context.)");
+		break;
 	case VX_ERROR_NOT_COMPATIBLE:
-		return std::runtime_error(R"(The attempt to link two parameters together failed due to type incompatibilty.)");
+		throw std::runtime_error(R"(The attempt to link two parameters together failed due to type incompatibilty.)");
+		break;
 	case VX_ERROR_NOT_ALLOCATED:
-		return std::runtime_error(R"(To the system that the parameter must be allocated by the system.)");
+		throw std::runtime_error(R"(To the system that the parameter must be allocated by the system.)");
+		break;
 	case VX_ERROR_NOT_SUFFICIENT:
-		return std::runtime_error(R"(The given graph has failed verification due to an insufficient number of required parameters, which cannot be automatically created. Typically this indicates required atomic parameters.)");
+		throw std::runtime_error(R"(The given graph has failed verification due to an insufficient number of required parameters, which cannot be automatically created. Typically this indicates required atomic parameters.)");
+		break;
 	case VX_ERROR_NOT_SUPPORTED:
-		return std::runtime_error(R"(The requested set of parameters produce a configuration that cannot be supported. Refer to the supplied documentation on the configured kernels.)");
+		throw std::runtime_error(R"(The requested set of parameters produce a configuration that cannot be supported. Refer to the supplied documentation on the configured kernels.)");
+		break;
 	case VX_ERROR_NOT_IMPLEMENTED:
-		return std::runtime_error(R"(The requested kernel is missing.)");
+		throw std::runtime_error(R"(The requested kernel is missing.)");
+		break;
 	case VX_FAILURE:
-		return std::runtime_error(R"(A generic error code, used when no other describes the error.)");
+		throw std::runtime_error(R"(A generic error code, used when no other describes the error.)");
+		break;
 	default:
-		return std::exception();
+		break;
 	}
 }

@@ -64,8 +64,8 @@ namespace ovx
 template<typename T>
 void ovx::copy_image_data(image_data<T> &data, vx_image image, vx_uint32 plane_index, vx_enum usage)
 {
-	vx_throw_if_failed(::vxAccessImagePatch(image, data.m_rect.get(), plane_index, data.m_address.get(), &data.m_data, usage));
-	vx_throw_if_failed(::vxCommitImagePatch(image, data.m_rect.get(), plane_index, data.m_address.get(), &data.m_data));
+	throw_if_failed(::vxAccessImagePatch(image, data.m_rect.get(), plane_index, data.m_address.get(), &data.m_data, usage));
+	throw_if_failed(::vxCommitImagePatch(image, data.m_rect.get(), plane_index, data.m_address.get(), &data.m_data));
 }
 
 template<typename T>
@@ -76,7 +76,7 @@ inline ovx::image_data<T>::image_data(vx_image image, const vx_rectangle_t &rect
 	, m_address(std::make_shared<vx_imagepatch_addressing_t>(vx_imagepatch_addressing_t{}))
 	, m_rect(std::make_shared<vx_rectangle_t>(rect))
 {
-	vx_throw_if_failed(::vxAccessImagePatch(image, &rect, plane_index, m_address.get(), &m_data, usage));
+	throw_if_failed(::vxAccessImagePatch(image, &rect, plane_index, m_address.get(), &m_data, usage));
 }
 
 template<typename T>

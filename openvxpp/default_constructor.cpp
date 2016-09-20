@@ -21,7 +21,7 @@
 ovx::default_constructor::default_constructor(vx_uint32 width, vx_uint32 height, vx_df_image color, const ovxcontext &context)
 {
 	m_image = ::vxCreateImage(context, width, height, color);
-	vx_throw_if_failed(vxGetStatus(m_image));
+	throw_if_failed(vxGetStatus(m_image));
 }
 
 

@@ -50,14 +50,14 @@ inline ovx::roi_constructor::roi_constructor(const basic_image<tcolor_type, tpix
 {
 	vx_rectangle_t rect{ x, y, x + width, y + height };
 	m_image = ::vxCreateImageFromROI(image, &rect);
-	vx_throw_if_failed(vxGetStatus(m_image));
+	throw_if_failed(vxGetStatus(m_image));
 }
 
 template<vx_df_image tcolor_type, vx_uint32 tpixel_size, typename tdata_type>
 inline ovx::roi_constructor::roi_constructor(const basic_image<tcolor_type, tpixel_size, tdata_type>& image, const imrect & rect)
 {
 	m_image = ::vxCreateImageFromROI(image, &rect);
-	vx_throw_if_failed(vxGetStatus(m_image));
+	throw_if_failed(vxGetStatus(m_image));
 }
 
 #endif // !_OPENVX_CPP_ROI_CONSTRUCTOR_HPP__

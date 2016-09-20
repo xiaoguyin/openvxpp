@@ -19,18 +19,9 @@
 #include "common.h"
 #include <exception>
 
-#define vx_throw_if_failed(status)\
-{\
-	const auto vx_throw_if_failed_result = status;\
-	if (vx_throw_if_failed_result != VX_SUCCESS)\
-	{\
-		throw ::ovx::exception_from_status(vx_throw_if_failed_result);\
-	}\
-}
-
 namespace ovx
 {
-	openvxdll std::exception exception_from_status(vx_status err) noexcept;
+	openvxdll void throw_if_failed(vx_status err);
 }
 
 #endif // !__OPENVX_CPP_VXEXCEPT_H__

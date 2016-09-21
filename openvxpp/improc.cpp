@@ -518,7 +518,7 @@ ovx::image_s16 ovx::subtract(const image_s16 &image1, const image_s16 &image2, b
 }
 
 
-ovx::image_u8 ovx::and(const image_u8 &image1, const image_u8 &image2, const ovxcontext &context)
+ovx::image_u8 ovx::vxand(const image_u8 &image1, const image_u8 &image2, const ovxcontext &context)
 {
 	image_u8 out(image1.width(), image1.height());
 	throw_if_failed(::vxuAnd(context, image1, image2, out));
@@ -526,7 +526,7 @@ ovx::image_u8 ovx::and(const image_u8 &image1, const image_u8 &image2, const ovx
 }
 
 
-ovx::image_u8 ovx::or(const image_u8 &image1, const image_u8 &image2, const ovxcontext &context)
+ovx::image_u8 ovx::vxor(const image_u8 &image1, const image_u8 &image2, const ovxcontext &context)
 {
 	image_u8 out(image1.width(), image1.height());
 	throw_if_failed(::vxuOr(context, image1, image2, out));
@@ -534,7 +534,7 @@ ovx::image_u8 ovx::or(const image_u8 &image1, const image_u8 &image2, const ovxc
 }
 
 
-ovx::image_u8 ovx::xor(const image_u8 &image1, const image_u8 &image2, const ovxcontext &context)
+ovx::image_u8 ovx::vxxor(const image_u8 &image1, const image_u8 &image2, const ovxcontext &context)
 {
 	image_u8 out(image1.width(), image1.height());
 	throw_if_failed(::vxuXor(context, image1, image2, out));
@@ -542,7 +542,7 @@ ovx::image_u8 ovx::xor(const image_u8 &image1, const image_u8 &image2, const ovx
 }
 
 
-ovx::image_u8 ovx::not(const image_u8 &image, const ovxcontext &context)
+ovx::image_u8 ovx::vxnot(const image_u8 &image, const ovxcontext &context)
 {
 	image_u8 out(image.width(), image.height());
 	throw_if_failed(::vxuNot(context, image, out));
@@ -588,7 +588,7 @@ ovx::image_u8 ovx::operator*(const image_u8 &image, vx_int32 number)
 
 	if (number == -1)
 	{
-		return not(image);
+		return vxnot(image);
 	}
 
 	image_u8 out(image.width(), image.height());
@@ -597,7 +597,7 @@ ovx::image_u8 ovx::operator*(const image_u8 &image, vx_int32 number)
 		out = add(image, image);
 	}
 
-	return number < 0 ? not(image) : image;
+	return number < 0 ? vxnot(image) : image;
 }
 
 
@@ -609,43 +609,43 @@ void ovx::operator*=(image_u8 &image, vx_int32 number)
 
 ovx::image_u8 ovx::operator&(const image_u8 &image1, const image_u8 &image2)
 {
-	return and(image1, image2);
+	return vxand(image1, image2);
 }
 
 
 void ovx::operator&=(image_u8 &image1, const image_u8 &image2)
 {
-	image1 = and(image1, image2);
+	image1 = vxand(image1, image2);
 }
 
 
 ovx::image_u8 ovx::operator|(const image_u8 &image1, const image_u8 &image2)
 {
-	return or(image1, image2);
+	return vxor(image1, image2);
 }
 
 
 void ovx::operator|=(image_u8 &image1, const image_u8 &image2)
 {
-	image1 = or(image1, image2);
+	image1 = vxor(image1, image2);
 }
 
 
 ovx::image_u8 ovx::operator^(const image_u8 &image1, const image_u8 &image2)
 {
-	return xor(image1, image2);
+	return vxxor(image1, image2);
 }
 
 
 void ovx::operator^=(image_u8 &image1, const image_u8 &image2)
 {
-	image1 = xor(image1, image2);
+	image1 = vxxor(image1, image2);
 }
 
 
 ovx::image_u8 ovx::operator~(const image_u8 &image)
 {
-	return not(image);
+	return vxnot(image);
 }
 
 

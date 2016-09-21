@@ -162,13 +162,13 @@ namespace ovx
 
 	openvxdll image_s16 subtract(const image_s16 &image1, const image_s16 &image2, bool saturate = true, const ovxcontext &context = vxcontext);
 
-	openvxdll image_u8 and(const image_u8 &image1, const image_u8 &image2, const ovxcontext &context = vxcontext);
+	openvxdll image_u8 vxand(const image_u8 &image1, const image_u8 &image2, const ovxcontext &context = vxcontext);
 
-	openvxdll image_u8 or(const image_u8 &image1, const image_u8 &image2, const ovxcontext &context = vxcontext);
+	openvxdll image_u8 vxor(const image_u8 &image1, const image_u8 &image2, const ovxcontext &context = vxcontext);
 
-	openvxdll image_u8 xor(const image_u8 &image1, const image_u8 &image2, const ovxcontext &context = vxcontext);
+	openvxdll image_u8 vxxor(const image_u8 &image1, const image_u8 &image2, const ovxcontext &context = vxcontext);
 
-	openvxdll image_u8 not(const image_u8 &image, const ovxcontext &context = vxcontext);
+	openvxdll image_u8 vxnot(const image_u8 &image, const ovxcontext &context = vxcontext);
 
 	openvxdll image_u8 operator+(const image_u8 &image1, const image_u8 &image2);
 

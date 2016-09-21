@@ -22,6 +22,7 @@
 #include "image.hpp"
 #include <utility>
 #include <opencv2/imgproc.hpp>
+#include <opencv2/highgui.hpp>
 #include <functional>
 
 namespace ovx

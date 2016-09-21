@@ -17,6 +17,7 @@
 #define __NOVX_OPENVX_CPP__DEVICE_HPP__
 
 #include "ovxcontext.h"
+#include <NVX/nvx.h>
 
 namespace novx
 {

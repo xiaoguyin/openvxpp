@@ -24,9 +24,6 @@
     <ClInclude Include="ovxcontext.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="opencv_interop.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="novx_device.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -34,9 +31,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="default_constructor.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="mat_constructor.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="image.hpp">
@@ -58,6 +52,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="openvxpp.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="nvx_opencv_interop.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="opencv_interop.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

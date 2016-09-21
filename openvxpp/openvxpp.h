@@ -16,7 +16,6 @@
 #ifndef __OPENVX_CPP_H__
 #define __OPENVX_CPP_H__
 
-#include "mat_constructor.hpp"
 #include "fixed_reference.hpp"
 #include "image.hpp"
 #include "improc.h"

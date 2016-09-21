@@ -93,9 +93,9 @@
     <ClInclude Include="image_data.hpp" />
     <ClInclude Include="improc.h" />
     <ClInclude Include="imrect.h" />
-    <ClInclude Include="mat_constructor.hpp" />
-    <ClInclude Include="novx_device.hpp" />
     <ClInclude Include="opencv_interop.hpp" />
+    <ClInclude Include="novx_device.hpp" />
+    <ClInclude Include="nvx_opencv_interop.hpp" />
     <ClInclude Include="openvxpp.h" />
     <ClInclude Include="ovxcontext.h" />
     <ClInclude Include="roi_constructor.h" />

@@ -16,6 +16,9 @@
 #ifndef __OPENVX_CPP_FIXED_REFERENCE_HPP__
 #define __OPENVX_CPP_FIXED_REFERENCE_HPP__
 
+#include <stdexcept>
+#include "image_data.hpp"
+
 namespace ovx
 {
 	template <typename T>

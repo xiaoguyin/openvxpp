@@ -640,8 +640,9 @@ namespace nvx_cv {
 		explicit VXImageToCVMatMapper(vx_image image,
 			vx_uint32 plane_index = 0,
 			const vx_rectangle_t *rect = NULL,
-			vx_enum usage = VX_READ_AND_WRITE) :
-			image_(image), plane_index_(plane_index)
+			vx_enum usage = VX_READ_AND_WRITE,
+			vx_enum memory_type = 57345) :
+			image_(image), plane_index_(plane_index), m_memory_type(memory_type)
 		{
 			vx_status status = VX_SUCCESS;
 
@@ -745,6 +746,8 @@ namespace nvx_cv {
 		vx_imagepatch_addressing_t addr_;
 
 		cv::Mat cv_mat_;
+
+		vx_enum m_memory_type;
 	};
 }
 

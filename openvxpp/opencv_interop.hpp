@@ -97,9 +97,6 @@ namespace ovx
 
 	template <vx_df_image tcolor_type, vx_uint32 tpixel_size, typename tdata_type>
 	void lock_to_mat(const basic_image<tcolor_type, tpixel_size, tdata_type> &image, const std::function<void(cv::Mat &mat)> &proc, vx_uint32 plane_index = 0, const vx_rectangle_t *rect = nullptr, vx_enum usage = VX_READ_AND_WRITE, vx_enum memory_type = VX_IMPORT_TYPE_HOST);
-
-	template <vx_df_image tcolor_type, vx_uint32 tpixel_size, typename tdata_type>
-	void lock_to_gpu_mat(const basic_image<tcolor_type, tpixel_size, tdata_type> &image, const std::function<void(cv::cuda::GpuMat &mat)> &proc, vx_uint32 plane_index = 0, const vx_rectangle_t *rect = nullptr, vx_enum usage = VX_READ_AND_WRITE, vx_enum memory_type = VX_IMPORT_TYPE_HOST);
 }
 
 namespace cv
@@ -386,14 +383,6 @@ inline void ovx::lock_to_mat(const basic_image<tcolor_type, tpixel_size, tdata_t
 {
 	nvx_cv::VXImageToCVMatMapper mapper(image, plane_index, rect, usage, memory_type);
 	auto mat = mapper.getMat();
-	proc(mat);
-}
-
-template<vx_df_image tcolor_type, vx_uint32 tpixel_size, typename tdata_type>
-inline void ovx::lock_to_gpu_mat(const basic_image<tcolor_type, tpixel_size, tdata_type>& image, const std::function<void(cv::cuda::GpuMat&mat)>& proc, vx_uint32 plane_index, const vx_rectangle_t * rect, vx_enum usage, vx_enum memory_type)
-{
-	nvx_cv::VXImageToCVMatMapper mapper(image, plane_index, rect, usage, memory_type);
-	auto mat = mapper.getGpuMat();
 	proc(mat);
 }
 
